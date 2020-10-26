@@ -5,6 +5,7 @@
 #include <tuple>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ pair<int, vector<tuple<int, int, float>>> greedy1(vector<tuple<int, int, float>>
     vector<tuple<int, int, float>> v = val;
     sort(v.begin(), v.end(), sorttuple);
     
-    for(int i = 0; i < v.size(); i++){
+    for(int i = 0; i < int(v.size()); i++){
         if(current_capacity + get<0>(v[i]) <= capacity){
             max_profit += get<1>(v[i]);
             current_capacity += get<0>(v[i]);
@@ -48,7 +49,7 @@ pair<int, vector<tuple<int, int, float>>> greedy2(vector<tuple<int, int, float>>
     
     int temp_index;
     
-    for(int i = 0; i < v.size(); i++){
+    for(int i = 0; i < int(v.size()); i++){
         if((get<1>(v[i]) > pmax) && (get<0>(v[i]) <= capacity)){
             pmax = get<1>(v[i]);
             temp_index = i;
@@ -95,8 +96,7 @@ int KWF2(int i, int profit, int weight, int capacity, int * maxprofit, int * num
         }
         i = i + 1;
     }
-    
-    cout << "final bound: " << bound << endl;
+
     return bound;
 }
 
@@ -145,7 +145,7 @@ pair<int, vector<tuple<int, int, float>>> bt_knapsack(vector<tuple<int, int, flo
     string * bestset = new string[arr_size];
     string * include = new string[arr_size];
     
-    for(int i = 0; i < v.size(); i++){
+    for(int i = 0; i < int(v.size()); i++){
         w[i+1] = get<0>(v[i]);
         p[i+1] = get<1>(v[i]);
         bestset[i+1] = ".";
@@ -176,6 +176,8 @@ int main(int argc, char *argv[]) {
     ofstream outfile(argv[2]);
     int mode = stoi(argv[3]);
     
+    cout.rdbuf(outfile.rdbuf());
+
     string line;
     string s1;
     string s2;
@@ -206,7 +208,7 @@ int main(int argc, char *argv[]) {
                     
                     cout << "Best Set: " << endl;
                     vector<tuple<int, int, float>> v = get<1>(p);
-                    for(int i = 0; i < v.size(); i++){
+                    for(int i = 0; i < int(v.size()); i++){
                         cout << get<0>(v[i]) << ", " << get<1>(v[i]) << endl;
                     }
                     cout << endl;
@@ -218,7 +220,7 @@ int main(int argc, char *argv[]) {
                     
                     cout << "Best Set: " << endl;
                     vector<tuple<int, int, float>> v = get<1>(p);
-                    for(int i = 0; i < v.size(); i++){
+                    for(int i = 0; i < int(v.size()); i++){
                         cout << get<0>(v[i]) << ", " << get<1>(v[i]) << endl;
                     }
                     cout << endl;
@@ -230,7 +232,7 @@ int main(int argc, char *argv[]) {
                     
                     cout << "Best Set: " << endl;
                     vector<tuple<int, int, float>> v = get<1>(p);
-                    for(int i = 0; i < v.size(); i++){
+                    for(int i = 0; i < int(v.size()); i++){
                         cout << get<0>(v[i]) << ", " << get<1>(v[i]) << endl;
                     }
                     cout << endl;
